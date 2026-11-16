@@ -2,79 +2,80 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent" android:layout_height="match_parent"
-    android:scrollbars="none" android:fillViewport="true">
+    android:background="@color/ds_bg" android:scrollbars="none">
 
     <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
-        android:orientation="vertical" android:padding="24dp">
+        android:orientation="vertical" android:padding="20dp">
 
+        <!-- Header (AI Style Greeting) -->
         <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-            android:text="Contact Lens Converter" android:textSize="24sp"
-            android:textStyle="bold" android:textColor="@color/text_dark" android:layout_marginTop="20dp"/>
+            android:text="Lens AI" android:textSize="28sp" android:textStyle="bold"
+            android:textColor="@color/ds_text_main" android:layout_marginTop="20dp"/>
             
         <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-            android:text="Enter your spectacle prescription to calculate contact lens power."
-            android:textColor="@color/text_gray" android:layout_marginTop="8dp" android:layout_marginBottom="32dp"/>
+            android:text="I can convert your spectacle prescription to contact lens power. Enter your details below."
+            android:textSize="15sp" android:textColor="@color/ds_text_sub"
+            android:layout_marginTop="8dp" android:layout_marginBottom="32dp" android:lineSpacingExtra="4dp"/>
 
         <!-- SPH Input -->
-        <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="match_parent" android:layout_height="wrap_content"
-            android:hint="Sphere (SPH) e.g. -4.50" style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/etSph" android:layout_width="match_parent" android:layout_height="wrap_content"
-                android:inputType="numberDecimal|numberSigned" android:textColor="@color/text_dark"/>
-        </com.google.android.material.textfield.TextInputLayout>
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+            android:text="Sphere (SPH)" android:textColor="@color/ds_text_main" android:textStyle="bold"
+            android:layout_marginBottom="8dp"/>
+        <EditText android:id="@+id/etSph"
+            android:layout_width="match_parent" android:layout_height="55dp"
+            android:background="@drawable/bg_ds_input" android:hint="-4.50"
+            android:paddingStart="16dp" android:paddingEnd="16dp"
+            android:inputType="numberDecimal|numberSigned" android:textColor="@color/ds_text_main"
+            android:textColorHint="@color/ds_text_sub" android:layout_marginBottom="16dp"/>
 
         <!-- CYL Input -->
-        <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="match_parent" android:layout_height="wrap_content"
-            android:layout_marginTop="16dp" android:hint="Cylinder (CYL) - Optional"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/etCyl" android:layout_width="match_parent" android:layout_height="wrap_content"
-                android:inputType="numberDecimal|numberSigned" android:textColor="@color/text_dark"/>
-        </com.google.android.material.textfield.TextInputLayout>
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+            android:text="Cylinder (CYL) - Optional" android:textColor="@color/ds_text_main" android:textStyle="bold"
+            android:layout_marginBottom="8dp"/>
+        <EditText android:id="@+id/etCyl"
+            android:layout_width="match_parent" android:layout_height="55dp"
+            android:background="@drawable/bg_ds_input" android:hint="-1.25"
+            android:paddingStart="16dp" android:paddingEnd="16dp"
+            android:inputType="numberDecimal|numberSigned" android:textColor="@color/ds_text_main"
+            android:textColorHint="@color/ds_text_sub" android:layout_marginBottom="16dp"/>
 
         <!-- Axis Input -->
-        <com.google.android.material.textfield.TextInputLayout
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+            android:text="Axis (1-180) - Optional" android:textColor="@color/ds_text_main" android:textStyle="bold"
+            android:layout_marginBottom="8dp"/>
+        <EditText android:id="@+id/etAxis"
+            android:layout_width="match_parent" android:layout_height="55dp"
+            android:background="@drawable/bg_ds_input" android:hint="90"
+            android:paddingStart="16dp" android:paddingEnd="16dp"
+            android:inputType="number" android:textColor="@color/ds_text_main"
+            android:textColorHint="@color/ds_text_sub" android:layout_marginBottom="24dp"/>
+
+        <!-- Button -->
+        <Button android:id="@+id/btnConvert"
+            android:layout_width="match_parent" android:layout_height="55dp"
+            android:text="Calculate" android:textAllCaps="false" android:textSize="16sp"
+            android:background="@drawable/bg_ds_button" android:textColor="@color/ds_white"/>
+
+        <!-- DeepSeek Style AI Response Card -->
+        <LinearLayout android:id="@+id/resultCard"
             android:layout_width="match_parent" android:layout_height="wrap_content"
-            android:layout_marginTop="16dp" android:hint="Axis (1-180) - Optional"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/etAxis" android:layout_width="match_parent" android:layout_height="wrap_content"
-                android:inputType="number" android:textColor="@color/text_dark"/>
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <!-- Convert Button -->
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btnConvert" android:layout_width="match_parent" android:layout_height="55dp"
-            android:text="CALCULATE LENS POWER" android:textStyle="bold"
-            android:layout_marginTop="32dp" app:cornerRadius="12dp"
-            android:backgroundTint="@color/primary_blue"/>
-
-        <!-- Result Card -->
-        <androidx.cardview.widget.CardView
-            android:id="@+id/resultCard" android:layout_width="match_parent" android:layout_height="wrap_content"
-            android:layout_marginTop="24dp" android:visibility="gone"
-            app:cardCornerRadius="12dp" app:cardElevation="0dp" app:cardBackgroundColor="@color/success_green">
+            android:orientation="vertical" android:background="@drawable/bg_ds_input"
+            android:padding="20dp" android:layout_marginTop="24dp" android:visibility="gone">
             
-            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
-                android:orientation="vertical" android:padding="24dp">
-                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                    android:text="Contact Lens Power" android:textColor="@color/success_text" android:textStyle="bold"/>
-                <TextView android:id="@+id/tvResult" android:layout_width="wrap_content" android:layout_height="wrap_content"
-                    android:text="-" android:textSize="32sp" android:textStyle="bold" android:textColor="@color/success_text"
-                    android:layout_marginTop="8dp"/>
-            </LinearLayout>
-        </androidx.cardview.widget.CardView>
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:text="Contact Lens Power" android:textColor="@color/ds_primary"
+                android:textStyle="bold" android:textSize="14sp"/>
+                
+            <TextView android:id="@+id/tvResult"
+                android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:text="-" android:textSize="32sp" android:textStyle="bold"
+                android:textColor="@color/ds_text_main" android:layout_marginTop="8dp"/>
+                
+            <TextView android:id="@+id/tvWarning" 
+                android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:textColor="#D97706" android:textSize="13sp"
+                android:layout_marginTop="12dp" android:visibility="gone"/>
+        </LinearLayout>
 
-        <!-- Warning Card -->
-        <androidx.cardview.widget.CardView
-            android:id="@+id/warningCard" android:layout_width="match_parent" android:layout_height="wrap_content"
-            android:layout_marginTop="24dp" android:visibility="gone"
-            app:cardCornerRadius="12dp" app:cardElevation="0dp" app:cardBackgroundColor="@color/error_red">
-            
-            <TextView android:id="@+id/tvWarning" android:layout_width="match_parent" android:layout_height="wrap_content"
-                android:padding="16dp" android:textColor="@color/error_text" android:textSize="14sp"/>
-        </androidx.cardview.widget.CardView>
     </LinearLayout>
 </ScrollView>
